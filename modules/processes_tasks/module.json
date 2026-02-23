@@ -1,0 +1,39 @@
+{
+    "slug": "processes_tasks",
+    "name": "Processes & Tasks",
+    "version": "0.1.0",
+    "icon": "bi-check2-square",
+    "permissions": [
+        "view",
+        "create",
+        "edit",
+        "delete",
+        "assign",
+        "export"
+    ],
+    "navigation": [
+        {
+            "key": "tasks",
+            "label": "Tasks",
+            "permission": "view"
+        },
+        {
+            "key": "projects",
+            "label": "Projects",
+            "permission": "view"
+        },
+        {
+            "key": "processes",
+            "label": "Processes",
+            "permission": "view"
+        },
+        {
+            "key": "kpis",
+            "label": "KPIs",
+            "permission": "view"
+        }
+    ],
+    "categories": [
+        "productivity"
+    ]
+}

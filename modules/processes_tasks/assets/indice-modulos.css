@@ -1,0 +1,807 @@
+/* ==========================================================
+   ÍNDICE ERP – ESTILO INSTITUCIONAL PARA MÓDULOS
+   Módulo: Procesos y Tareas
+   Autor: Nahum Peña / Proyecto Índice 2025
+   ========================================================== */
+
+:root {
+    --primary: #1f4d9f;
+    /* Azul Índice */
+    --accent: #ffd650;
+    /* Amarillo institucional */
+    --text: #0f172a;
+    /* Texto principal */
+    --muted: #6b7280;
+    /* Texto secundario */
+    --bg-surface: #f9fafb;
+    /* Fondo general */
+    --bg-card: #ffffff;
+    /* Fondo de cards y modales */
+    --shadow: 0 2px 10px rgba(15, 23, 42, .06);
+    --radius: 16px;
+}
+
+/* === General Layout (espaciado aumentado, estilo web) === */
+body {
+    background: var(--bg-surface);
+    color: var(--text);
+    font-family: "Inter", "Arial", sans-serif;
+}
+
+/* Icono bloc de notas amarillo */
+.module-icon-notebook {
+    font-size: 2rem;
+    filter: drop-shadow(0 2px 4px rgba(255, 214, 80, 0.3));
+}
+
+.container-fluid {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+/* Espaciado mínimo 24px entre secciones */
+section+section,
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.my-4 {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+h1,
+h2,
+h3 {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+h4,
+h5,
+h6 {
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* === Cards === */
+.card {
+    border-radius: var(--radius);
+    background: var(--bg-card);
+    box-shadow: var(--shadow);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+/* === Buttons (estilo web institucional) === */
+.btn-primary {
+    background-color: var(--primary) !important;
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 12px !important;
+    padding: .6rem 1.2rem;
+    border: none !important;
+    transition: all .2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #163c85 !important;
+    color: #fff !important;
+}
+
+.btn-outline-primary {
+    border: 1px solid var(--primary) !important;
+    color: var(--primary) !important;
+    background: transparent !important;
+    font-weight: 600;
+    border-radius: 12px !important;
+    padding: .6rem 1.2rem;
+    transition: all .2s ease;
+}
+
+.btn-outline-primary:hover {
+    background: rgba(31, 77, 159, 0.05) !important;
+    border-color: var(--primary) !important;
+    color: var(--primary) !important;
+}
+
+/* Alias para compatibilidad */
+.btn-ghost {
+    border: 1px solid rgba(15, 23, 42, .15);
+    color: var(--text);
+    background: transparent;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: .6rem 1.2rem;
+    transition: all .2s ease;
+}
+
+.btn-ghost:hover {
+    background: rgba(15, 23, 42, .03);
+}
+
+/* === Hero Module Header (estilo web simple) === */
+.module-hero {
+    background: #fff !important;
+    border-bottom: 1px solid rgba(15, 23, 42, .08) !important;
+    padding: 1.5rem 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.module-hero h1 {
+    font-size: 1.75rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.25rem !important;
+}
+
+.module-hero p {
+    font-size: .95rem !important;
+    color: var(--muted) !important;
+}
+
+/* === Navegación tipo Web === */
+.nav-tabs {
+    border: none;
+    margin-bottom: 1.5rem;
+}
+
+.nav-tabs .nav-link {
+    color: var(--muted);
+    border: none;
+    border-bottom: 3px solid transparent;
+    background: transparent;
+    transition: all 0.2s ease;
+    font-weight: 600;
+    padding: 0.75rem 1.25rem;
+}
+
+.nav-tabs .nav-link:hover {
+    color: var(--primary);
+    border-bottom-color: rgba(255, 214, 80, 0.5);
+}
+
+.nav-tabs .nav-link.active {
+    color: var(--primary);
+    border-bottom: 3px solid var(--accent);
+    background: transparent;
+}
+
+/* === KPI Cards COMPACTOS (unificados, color corporativo) === */
+.kpi-card {
+    background: linear-gradient(135deg, rgba(31, 77, 159, 0.05) 0%, rgba(31, 77, 159, 0.02) 100%);
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    padding: 0.75rem 1rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(31, 77, 159, .1);
+}
+
+.kpi-card:hover {
+    box-shadow: 0 2px 6px rgba(31, 77, 159, 0.15);
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, rgba(31, 77, 159, 0.08) 0%, rgba(31, 77, 159, 0.04) 100%);
+}
+
+.kpi-card p {
+    margin-bottom: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.kpi-card h2 {
+    font-size: 1.75rem;
+    line-height: 1;
+    margin: 0;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* === Badges (solo tonos azules institucionales) === */
+.badge {
+    padding: .35rem .75rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: .75rem;
+    background: rgba(31, 77, 159, 0.08);
+    color: var(--primary);
+    border: 1px solid rgba(31, 77, 159, 0.15);
+}
+
+/* === Barra de búsqueda integrada === */
+.form-control.ps-5 {
+    padding-left: 2.5rem !important;
+}
+
+/* === Tablas estilo Apple Sheet === */
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table thead th {
+    padding: 1rem;
+    border: none;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: transparent;
+}
+
+.table tbody td {
+    padding: 1rem;
+    border-top: 1px solid rgba(15, 23, 42, .05);
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background: rgba(31, 77, 159, 0.02);
+}
+
+/* Botones de acción en tablas (más llamativos) */
+.table .btn-sm {
+    padding: .4rem .7rem;
+    font-size: .875rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all .2s ease;
+}
+
+.table .btn-primary {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+.table .btn-primary:hover {
+    background: #163c85 !important;
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(31, 77, 159, 0.25);
+}
+
+.table .btn-outline-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(31, 77, 159, 0.15);
+}
+
+.table .btn-success {
+    background: #2bb673 !important;
+    border-color: #2bb673 !important;
+    color: #fff !important;
+}
+
+.table .btn-success:hover {
+    background: #239d5f !important;
+    transform: scale(1.05);
+}
+
+.table .btn-danger {
+    background: #e74c3c !important;
+    border-color: #e74c3c !important;
+    color: #fff !important;
+}
+
+.table .btn-danger:hover {
+    background: #c0392b !important;
+    transform: scale(1.05);
+}
+
+/* === Tablas === */
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bg-card);
+    box-shadow: var(--shadow);
+}
+
+.table thead {
+    background: var(--bg-surface);
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table thead th {
+    padding: 1rem;
+    border: none;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--muted);
+}
+
+.table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+.table tbody tr:hover {
+    background: rgba(31, 77, 159, 0.05);
+    cursor: pointer;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, .08);
+}
+
+.table tbody td {
+    padding: 1rem;
+    border: none;
+    vertical-align: middle;
+}
+
+/* === Badges de estado === */
+.badge {
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 10px;
+}
+
+.badge.bg-success {
+    background-color: var(--logo-green) !important;
+    color: white;
+}
+
+.badge.bg-warning {
+    background-color: var(--logo-yellow) !important;
+    color: #111827 !important;
+}
+
+.badge.bg-danger {
+    background-color: var(--logo-red) !important;
+    color: white;
+}
+
+.badge.bg-primary {
+    background-color: var(--primary) !important;
+    color: white;
+}
+
+.badge.bg-secondary {
+    background-color: var(--muted) !important;
+    color: white;
+}
+
+/* === Badges de frecuencia (solo para procesos) === */
+.badge-frecuencia {
+    font-size: 0.7rem;
+    background: rgba(31, 77, 159, 0.08);
+    color: var(--primary);
+    border-radius: 8px;
+    padding: 0.25rem 0.6rem;
+    text-transform: capitalize;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.badge-frecuencia::before {
+    content: "🔁";
+    font-size: 0.9rem;
+}
+
+/* === Columnas ocultas === */
+.column-hidden {
+    display: none !important;
+}
+
+/* === Inputs y formularios === */
+.form-control,
+.form-select {
+    border-radius: 8px;
+    border: 1px solid rgba(15, 23, 42, .15);
+    box-shadow: none;
+    transition: border-color 0.2s ease;
+    padding: 0.65rem 0.9rem;
+    font-size: 0.95rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.15rem rgba(31, 77, 159, 0.15);
+    outline: none;
+}
+
+label.form-label {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.form-text,
+small.text-muted {
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+/* === Modales === */
+.modal-content {
+    border-radius: var(--radius);
+    background: var(--bg-card);
+    box-shadow: 0 10px 40px rgba(15, 23, 42, .15);
+    border: none;
+}
+
+.modal-header {
+    border: none;
+    padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.modal-header h5 {
+    color: var(--primary);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.modal-body {
+    padding: 1rem 1.5rem;
+}
+
+.modal-footer {
+    border: none;
+    padding: 0.5rem 1.5rem 1.5rem;
+}
+
+/* === Reveal Animation === */
+.reveal {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all .4s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* === Iconos dentro de títulos === */
+h2 span.fs-3,
+h5 i,
+h6 i {
+    vertical-align: middle;
+    color: var(--primary);
+}
+
+/* === Tooltips personalizados === */
+.tooltip-inner {
+    background-color: var(--text);
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.tooltip-arrow::before {
+    border-top-color: var(--text);
+}
+
+/* === Botones de acción dentro de tabla === */
+.btn-group .btn-ghost {
+    padding: .35rem .5rem;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all .2s ease;
+    border: 1px solid rgba(15, 23, 42, .08);
+}
+
+.btn-group .btn-ghost:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, .1);
+}
+
+.btn-group .btn-ghost.text-success:hover {
+    background: rgba(43, 182, 115, 0.1);
+    border-color: var(--logo-green);
+}
+
+.btn-group .btn-ghost.text-success i {
+    color: var(--logo-green);
+}
+
+.btn-group .btn-ghost.text-warning:hover {
+    background: rgba(255, 214, 80, 0.2);
+    border-color: var(--logo-yellow);
+}
+
+.btn-group .btn-ghost.text-warning i {
+    color: #f39c12;
+}
+
+.btn-group .btn-ghost.text-danger:hover {
+    background: rgba(231, 76, 60, 0.1);
+    border-color: var(--logo-red);
+}
+
+.btn-group .btn-ghost.text-danger i {
+    color: var(--logo-red);
+}
+
+.btn-group .btn-ghost.text-info:hover {
+    background: rgba(31, 77, 159, 0.1);
+    border-color: var(--primary);
+}
+
+.btn-group .btn-ghost.text-info i {
+    color: var(--primary);
+}
+
+.btn-group .btn-ghost.text-secondary:hover {
+    background: rgba(107, 114, 128, 0.1);
+    border-color: var(--muted);
+}
+
+.btn-group .btn-ghost.text-secondary i {
+    color: var(--muted);
+}
+
+/* === Header del módulo === */
+.module-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.module-header h2 {
+    font-weight: 700;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.module-header h2 span {
+    font-size: 1.8rem;
+}
+
+.module-header .btn-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* === Nav Pills (pestañas) === */
+.nav-pills .nav-link {
+    color: var(--muted);
+    border-radius: 12px;
+    padding: .6rem 1.2rem;
+    font-weight: 600;
+    transition: all .2s ease;
+    border: 1px solid transparent;
+}
+
+.nav-pills .nav-link:hover {
+    background: rgba(15, 23, 42, .03);
+    color: var(--text);
+}
+
+.nav-pills .nav-link.active {
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: var(--shadow);
+}
+
+/* === Modal Configuración de Columnas === */
+#columnConfigModal .form-check {
+    margin-bottom: .5rem;
+    padding-left: 1.75rem;
+}
+
+#columnConfigModal .form-check-input {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-top: 0.1rem;
+}
+
+#columnConfigModal .form-check-input:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+#columnConfigModal .form-check-label {
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+}
+
+#columnConfigModal h6 {
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* === Frecuencia visual === */
+.frecuencia-icon::before {
+    content: "🔁 ";
+    font-size: 0.9rem;
+}
+
+/* === Tabla editable inline === */
+.table tbody td.editable {
+    cursor: pointer;
+    position: relative;
+}
+
+.table tbody td.editable:hover {
+    background: rgba(31, 77, 159, 0.03);
+}
+
+.table tbody td input.form-control-sm {
+    min-width: 100px;
+    border: 1px solid var(--primary);
+    box-shadow: 0 0 0 3px rgba(31, 77, 159, 0.1);
+}
+
+.table .form-select-sm {
+    font-size: 13px;
+    padding: .35rem .6rem;
+    border-radius: 8px;
+    border: 1px solid rgba(15, 23, 42, .15);
+    transition: all .2s ease;
+    min-width: 120px;
+}
+
+.table .form-select-sm:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(31, 77, 159, 0.1);
+}
+
+.table tbody td.readonly {
+    background: rgba(249, 250, 251, 0.5);
+    color: var(--muted);
+}
+
+.table tbody td.saving {
+    background: rgba(43, 182, 115, 0.1);
+    animation: pulse 1s ease-in-out;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* === Edit hint === */
+.edit-hint {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+}
+
+/* === Accordion (para campos adicionales) === */
+.accordion-item {
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 0.5rem;
+}
+
+.accordion-button {
+    background: var(--bg-card);
+    color: var(--text);
+    font-weight: 600;
+    border-radius: var(--radius) !important;
+    border: none;
+}
+
+.accordion-button:not(.collapsed) {
+    background: var(--bg-surface);
+    color: var(--primary);
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.15rem rgba(31, 77, 159, 0.15);
+    border-color: var(--primary);
+}
+
+.accordion-body {
+    background: var(--bg-card);
+    padding: 1.25rem;
+}
+
+/* === Columnas ocultas === */
+.table th.column-hidden,
+.table td.column-hidden {
+    display: none;
+}
+
+/* === Separador horizontal === */
+hr {
+    border: none;
+    border-top: 1px solid rgba(15, 23, 42, 0.1);
+    margin: 1.5rem 0;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+    .module-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .module-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .module-header .btn-group {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .module-header .btn-group .btn {
+        width: 100%;
+    }
+
+    .nav-pills {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-pills .nav-link {
+        width: 100%;
+    }
+
+    .table {
+        font-size: 0.85rem;
+    }
+
+    .btn-group {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+}
+
+/* === Estados de proceso === */
+.estado-en-tiempo {
+    color: var(--logo-green);
+    font-weight: 600;
+}
+
+.estado-en-proceso {
+    color: #f39c12;
+    font-weight: 600;
+}
+
+.estado-vencida {
+    color: var(--logo-red);
+    font-weight: 600;
+}
+
+.estado-terminada {
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.estado-auditada {
+    color: var(--primary);
+    font-weight: 600;
+}

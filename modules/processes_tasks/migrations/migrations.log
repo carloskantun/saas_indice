@@ -1,0 +1,8 @@
+[2025-11-09T15:30:36-06:00] ERROR: Error en 20251109_create_tasks.sql: SQLSTATE[HY000]: General error: 1215 Cannot add foreign key constraint
+[2025-11-09T15:30:40-06:00] ERROR: Error en 20251109_create_tasks.sql: SQLSTATE[HY000]: General error: 1215 Cannot add foreign key constraint
+[2025-11-09T15:30:42-06:00] ERROR: Error en 20251109_create_tasks.sql: SQLSTATE[HY000]: General error: 1215 Cannot add foreign key constraint
+[2025-11-09T15:30:45-06:00] ERROR: Error en 20251109_create_tasks.sql: SQLSTATE[HY000]: General error: 1215 Cannot add foreign key constraint
+[2025-11-09T15:30:47-06:00] ERROR: Error en 20251109_create_tasks.sql: SQLSTATE[HY000]: General error: 1215 Cannot add foreign key constraint
+[2025-11-09T15:30:54-06:00] ERROR: Error en 20251109_create_tasks.sql: SQLSTATE[HY000]: General error: 1215 Cannot add foreign key constraint
+[2025-11-09T17:57:11-06:00] OK: 20251109_create_tasks_fixed.sql
+[2025-11-09T18:35:26-06:00] OK: 20251109_create_tasks_fixed.sql, seed_tasks.sql
