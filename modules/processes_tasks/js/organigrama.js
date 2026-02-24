@@ -179,12 +179,19 @@ console.log('[Processes & Tasks] ORGANIGRAMA JS loaded');
     localStorage.setItem(LSK.rels, JSON.stringify(state.relations));
     // Try to save to backend if available (no DB changes required; endpoint optional)
     try {
+      const debug = (document.body && document.body.dataset && document.body.dataset.appDebug === '1');
       fetch('/modules/processes_tasks/api/org.save.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'same-origin',
         body: JSON.stringify({ nodes: state.nodes, relations: state.relations })
-      }).catch(() => { });
+      }).then((res) => {
+        if (debug && res && !res.ok) {
+          console.warn('[Organigrama] org.save failed', { status: res.status });
+        }
+      }).catch((e) => {
+        if (debug) console.warn('[Organigrama] org.save network error', e);
+      });
     } catch (_) { }
   }
 

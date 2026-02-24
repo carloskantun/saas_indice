@@ -113,7 +113,7 @@ $tab = array_key_exists($rawTab, $tabs) ? $rawTab : 'dashboard';
         .alert { margin: 1rem; padding: 1rem; }
     </style>
 </head>
-<body class="pt-module pt-cc-skin" data-user-id="<?php echo (int)($user['id'] ?? 0); ?>" data-company-id="<?php echo (int)$companyId; ?>" data-module-slug="processes_tasks" data-pt-tab="<?php echo h($tab); ?>">
+<body class="pt-module pt-cc-skin" data-user-id="<?php echo (int)($user['id'] ?? 0); ?>" data-company-id="<?php echo (int)$companyId; ?>" data-module-slug="processes_tasks" data-pt-tab="<?php echo h($tab); ?>" data-app-debug="<?php echo (defined('APP_DEBUG') && APP_DEBUG) ? '1' : '0'; ?>">
     <div id="module-processes-tasks" data-module="processes-tasks">
     <div class="container-xxl py-4" id="pt-container">
             <!-- HEADER INSTITUCIONAL (estilo RH) -->
