@@ -117,6 +117,29 @@ try {
         $ownerTargetPairs[] = [$userId, $targetUserId];
     }
 
+    // Micro-hardening: asegurar que los targets pertenezcan a la misma compañía (user_companies activo).
+    // Esto cubre especialmente el modo compat cuando child_id llega como users.id y no mapea por hr_employees.
+    if ($ownerTargetPairs) {
+        $targetIds = array_values(array_unique(array_map(fn($p) => (int)$p[1], $ownerTargetPairs)));
+        $ph = implode(',', array_fill(0, count($targetIds), '?'));
+        $stmtMembers = $pdo->prepare("SELECT user_id FROM user_companies WHERE company_id = ? AND status = 'active' AND user_id IN ($ph)");
+        $stmtMembers->execute(array_merge([$companyId], $targetIds));
+        $members = [];
+        while ($uid = $stmtMembers->fetchColumn()) {
+            $members[(int)$uid] = true;
+        }
+
+        $filtered = [];
+        foreach ($ownerTargetPairs as [$ownerUserId, $targetUserId]) {
+            if (empty($members[(int)$targetUserId])) {
+                $rejected[] = ['owner_user_id' => $ownerUserId, 'target_user_id' => $targetUserId, 'reason' => 'target_not_in_company'];
+                continue;
+            }
+            $filtered[] = [$ownerUserId, $targetUserId];
+        }
+        $ownerTargetPairs = $filtered;
+    }
+
     // Scope: superadmin ignora; cualquier otro rol (incl admin) aplica scope unit/business
     $scope = $isSuperadmin ? ['type' => 'all', 'units' => [], 'businesses' => []] : getUserScope($userId, $companyId);
 
