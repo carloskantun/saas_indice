@@ -98,24 +98,23 @@ try {
     $ownerTargetPairs = [];
     $rejected = [];
 
+    // Seguridad: este endpoint solo puede guardar el organigrama del usuario actual.
+    // El payload del UI puede traer parent_id/child_id (hr_employees.id). Aquí ignoramos el parent
+    // y fijamos owner_user_id = currentUserId().
     foreach ($pairs as [$parentEmpId, $childEmpId]) {
-        $ownerUserId = $employeeToUser[$parentEmpId] ?? 0;
         $targetUserId = $employeeToUser[$childEmpId] ?? 0;
 
-        // Si no mapearon como hr_employee, intentar tratarlos como users.id (compat)
-        if (!$ownerUserId) {
-            $ownerUserId = $parentEmpId;
-        }
+        // Si no mapeó como hr_employee, intentar tratarlo como users.id (compat)
         if (!$targetUserId) {
             $targetUserId = $childEmpId;
         }
 
-        if ($ownerUserId <= 0 || $targetUserId <= 0 || $ownerUserId === $targetUserId) {
+        if ($targetUserId <= 0 || $targetUserId === $userId) {
             $rejected[] = ['parent_id' => $parentEmpId, 'child_id' => $childEmpId, 'reason' => 'invalid_mapping'];
             continue;
         }
 
-        $ownerTargetPairs[] = [$ownerUserId, $targetUserId];
+        $ownerTargetPairs[] = [$userId, $targetUserId];
     }
 
     // Scope: superadmin ignora; cualquier otro rol (incl admin) aplica scope unit/business
@@ -163,12 +162,11 @@ try {
         $finalPairs[] = [$ownerUserId, $targetUserId];
     }
 
-    // Guardar (reemplazo total por compañía) dentro de transacción
+    // Guardar (reemplazo solo del owner actual) dentro de transacción
     $pdo->beginTransaction();
 
-    // Para mínimo cambio: reemplazo total de la tabla por compañía
-    $stmtDel = $pdo->prepare('DELETE FROM processes_tasks_org_access WHERE company_id = ?');
-    $stmtDel->execute([$companyId]);
+    $stmtDel = $pdo->prepare('DELETE FROM processes_tasks_org_access WHERE company_id = ? AND owner_user_id = ?');
+    $stmtDel->execute([$companyId, $userId]);
 
     if ($finalPairs) {
         $stmtIns = $pdo->prepare('INSERT INTO processes_tasks_org_access (company_id, owner_user_id, target_user_id, unit_id, business_id, created_by, created_at) VALUES (?, ?, ?, NULL, NULL, ?, NOW())');
