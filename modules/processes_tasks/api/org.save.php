@@ -132,7 +132,7 @@ try {
         $filtered = [];
         foreach ($ownerTargetPairs as [$ownerUserId, $targetUserId]) {
             if (empty($members[(int)$targetUserId])) {
-                $rejected[] = ['owner_user_id' => $ownerUserId, 'target_user_id' => $targetUserId, 'reason' => 'target_not_in_company'];
+                $rejected[] = ['owner_user_id' => $ownerUserId, 'target_user_id' => $targetUserId, 'child_id' => (int)$targetUserId, 'reason' => 'target_not_in_company'];
                 continue;
             }
             $filtered[] = [$ownerUserId, $targetUserId];
