@@ -17,6 +17,7 @@ try {
     // Cargar empleados de HR con información completa
     $sql = "SELECT 
                 he.id,
+                he.user_id,
                 he.employee_code,
                 he.full_name as name,
                 he.department,

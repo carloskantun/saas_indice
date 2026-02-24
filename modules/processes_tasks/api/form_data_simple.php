@@ -17,7 +17,7 @@ try {
     $result = ['ok' => true];
     
     // 1. Intentar cargar empleados activos de HR primero
-    $sql = "SELECT id, full_name AS name, employee_code, position, department 
+    $sql = "SELECT id, user_id, full_name AS name, employee_code, position, department 
             FROM hr_employees 
             WHERE company_id = ? 
             AND full_name IS NOT NULL 
@@ -29,7 +29,7 @@ try {
     
     // 2. Si no hay empleados activos, intentar con cualquier status
     if (count($employees) === 0) {
-        $sql = "SELECT id, full_name AS name, employee_code, position, department 
+        $sql = "SELECT id, user_id, full_name AS name, employee_code, position, department 
                 FROM hr_employees 
                 WHERE company_id = ? 
                 AND full_name IS NOT NULL 
@@ -52,6 +52,7 @@ try {
         $employees = array_map(function($user) {
             return [
                 'id' => $user['id'],
+                'user_id' => $user['id'],
                 'name' => $user['name'],
                 'employee_code' => 'U' . $user['id'],
                 'position' => 'Usuario',
@@ -70,6 +71,7 @@ try {
         if ($currentUser) {
             $employees = [[
                 'id' => $currentUser['id'],
+                'user_id' => $currentUser['id'],
                 'name' => $currentUser['name'],
                 'employee_code' => 'ACTUAL',
                 'position' => 'Usuario Actual',

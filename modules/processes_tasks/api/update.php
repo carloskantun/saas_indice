@@ -5,6 +5,7 @@ require __DIR__.'/../../../core/permissions.php';
 require __DIR__.'/../../../core/scope.php';
 require __DIR__.'/../includes/csrf_helper.php';
 require __DIR__.'/../includes/enum_normalizer.php';
+require __DIR__.'/../includes/id_resolver.php';
 header('Content-Type: application/json');
 
 requireLogin();
@@ -142,6 +143,22 @@ foreach ($_POST as $key => $value) {
     // No admin/superadmin: no permitir suplantar creador
     if (!$isSuperadmin && !$isAdmin && $dbField === 'usuario_creador') {
         continue;
+    }
+
+    // Normalización gradual: aceptar hr_employees.id o users.id, guardar SIEMPRE users.id.
+    if ($dbField === 'usuario_delegado' || $dbField === 'usuario_creador') {
+        $incoming = ($value === '' ? null : (int)$value);
+        if ($incoming !== null && $incoming > 0) {
+            $resolved = resolveUserIdFromMixed($incoming, $ucId);
+            if ($resolved === null) {
+                http_response_code(422);
+                echo json_encode(['ok' => false, 'error' => 'invalid_user_reference', 'field' => $dbField]);
+                exit;
+            }
+            $value = $resolved;
+        } else {
+            $value = null;
+        }
     }
 
     // Validar cambios de unit_id/business_id contra scope (excepto superadmin)

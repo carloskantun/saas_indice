@@ -11,13 +11,14 @@ if (!hasPermission($companyId, 'processes_tasks', 'view')) { http_response_code(
 
 try {
     $pdo = db();
-    $sql = 'SELECT id, employee_code, full_name, department, position FROM hr_employees WHERE company_id = ? AND (status = "activo" OR status IS NULL) ORDER BY full_name ASC LIMIT 1000';
+    $sql = 'SELECT id, user_id, employee_code, full_name, department, position FROM hr_employees WHERE company_id = ? AND (status = "activo" OR status IS NULL) ORDER BY full_name ASC LIMIT 1000';
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$companyId]);
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
     $data = array_map(function($r){
         return [
             'id' => (int)$r['id'],
+            'user_id' => isset($r['user_id']) && $r['user_id'] !== null ? (int)$r['user_id'] : null,
             'code' => $r['employee_code'] ?? '',
             'name' => $r['full_name'] ?? '',
             'dept' => $r['department'] ?? '',

@@ -17,6 +17,10 @@ if (!hasPermission($ucId, 'processes_tasks', 'view')) {
 
 try {
     $pdo = db();
+
+    $delegadoIdKindSelect = (defined('APP_DEBUG') && APP_DEBUG)
+        ? ", CASE WHEN ud.id IS NULL THEN 'unknown' ELSE 'users' END AS delegado_id_kind"
+        : '';
     
     // Determinar rol de compañía para enforcement (superadmin vs admin vs usuario)
     $stmtRole = $pdo->prepare("SELECT role FROM user_companies WHERE user_id = ? AND company_id = ? AND status = 'active' LIMIT 1");
@@ -128,6 +132,7 @@ try {
             ec.full_name AS creador_nombre,
             ud.email AS delegado_email,
             ed.full_name AS delegado_nombre
+            ' . $delegadoIdKindSelect . '
         FROM tasks t
         LEFT JOIN businesses b ON b.id = t.business_id
         LEFT JOIN units u ON u.id = t.unit_id
@@ -135,7 +140,7 @@ try {
         LEFT JOIN hr_employees ec ON ec.user_id = t.usuario_creador AND ec.company_id = t.company_id
         LEFT JOIN users ud ON ud.id = t.usuario_delegado
         LEFT JOIN hr_employees ed ON ed.user_id = t.usuario_delegado AND ed.company_id = t.company_id
-        WHERE '.implode(' AND ', $where).'
+        WHERE ' . implode(' AND ', $where) . '
         ORDER BY 
             CASE t.status
                 WHEN "Vencida" THEN 0

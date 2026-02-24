@@ -6,6 +6,7 @@ require __DIR__.'/../../../core/scope.php';
 require __DIR__.'/../includes/csrf_helper.php';
 require __DIR__.'/../includes/validation_helper.php';
 require __DIR__.'/../includes/enum_normalizer.php';
+require __DIR__.'/../includes/id_resolver.php';
 header('Content-Type: application/json');
 
 requireLogin();
@@ -141,6 +142,17 @@ try {
         if ($value === false) {
             echo json_encode(['ok'=>false,'error'=>'invalid_integer_value']);
             exit;
+        }
+
+        // Normalización gradual: aceptar hr_employees.id o users.id, guardar SIEMPRE users.id.
+        if ($value !== null && in_array($col, ['usuario_delegado','usuario_creador'], true)) {
+            $resolved = resolveUserIdFromMixed((int)$value, (int)$ucId);
+            if ($resolved === null) {
+                http_response_code(422);
+                echo json_encode(['ok' => false, 'error' => 'invalid_user_reference', 'field' => $col]);
+                exit;
+            }
+            $value = $resolved;
         }
     }
     

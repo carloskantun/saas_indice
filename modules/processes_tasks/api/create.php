@@ -6,6 +6,7 @@ require __DIR__.'/../../../core/scope.php';
 require __DIR__.'/../includes/csrf_helper.php';
 require __DIR__.'/../includes/validation_helper.php';
 require __DIR__.'/../includes/enum_normalizer.php';
+require __DIR__.'/../includes/id_resolver.php';
 header('Content-Type: application/json');
 
 requireLogin();
@@ -114,6 +115,29 @@ try {
     if (!$isSuperadmin && !$isAdmin) {
         $delegate = $userId;
     }
+
+    // Normalización gradual: aceptar hr_employees.id o users.id, guardar SIEMPRE users.id.
+    $creatorUserId = $userId;
+    if (($isSuperadmin || $isAdmin) && !empty($delegate) && (int)$delegate > 0) {
+        $resolvedCreator = resolveUserIdFromMixed($delegate, $ucId);
+        if ($resolvedCreator === null) {
+            http_response_code(422);
+            echo json_encode(['ok' => false, 'error' => 'invalid_user_reference', 'field' => 'usuario_creador']);
+            exit;
+        }
+        $creatorUserId = $resolvedCreator;
+    }
+
+    $assigneeUserId = null;
+    if (!empty($assignee) && (int)$assignee > 0) {
+        $resolvedAssignee = resolveUserIdFromMixed($assignee, $ucId);
+        if ($resolvedAssignee === null) {
+            http_response_code(422);
+            echo json_encode(['ok' => false, 'error' => 'invalid_user_reference', 'field' => 'usuario_delegado']);
+            exit;
+        }
+        $assigneeUserId = $resolvedAssignee;
+    }
     
     // Generar folio único
     $stmtFolio = $pdo->prepare('SELECT MAX(CAST(SUBSTRING(folio, 3) AS UNSIGNED)) as max_num FROM tasks WHERE company_id = ? AND folio LIKE "T-%"');
@@ -145,8 +169,8 @@ try {
         $start ?: null,                 // fecha_inicio
         $due ?: null,                   // fecha_fin
         $due ?: null,                   // fecha_entrega (mismo que fin por ahora)
-        $delegate ?: $userId,           // usuario_creador (quien delega)
-        $assignee ?: null,              // usuario_delegado (a quien se asigna)
+        $creatorUserId,                 // usuario_creador (users.id canónico)
+        $assigneeUserId,                // usuario_delegado (users.id canónico)
         $normalizedPriority,            // nivel (normalizado: Normal, Importante, Urgente)
         $type,                          // tipo (viene del formulario)
         $normalizedStatus,              // status (normalizado: En tiempo, En proceso, etc.)
