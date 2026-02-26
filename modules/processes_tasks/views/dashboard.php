@@ -18,12 +18,13 @@ if (!isset($_SESSION['csrf_token'])) {
     <p class="subtitle">Visualiza y gestiona el trabajo del equipo.</p>
   </div>
   <div class="hr-header-right">
+    <!-- pt_build: agenda-actions 2026-02-26 -->
     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalColumns_ptAgendaTable" id="btnColumnsPT_ptAgendaTable">
       <i class="bi bi-columns-gap"></i> Columnas
     </button>
-    <a class="btn btn-primary" href="?tab=tasks&new_task=1" aria-label="Agregar nueva tarea">
+    <button type="button" class="btn btn-primary" id="ptAgendaNewTask" onclick="window.location.href='?tab=tasks&new_task=1'" aria-label="Agregar nueva tarea">
       <i class="bi bi-plus-circle"></i> Agregar tarea
-    </a>
+    </button>
   </div>
 </div>
 
