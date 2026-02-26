@@ -21,6 +21,9 @@ if (!isset($_SESSION['csrf_token'])) {
     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalColumns_ptAgendaTable" id="btnColumnsPT_ptAgendaTable">
       <i class="bi bi-columns-gap"></i> Columnas
     </button>
+    <a class="btn btn-primary" href="?tab=tasks&new_task=1" aria-label="Agregar nueva tarea">
+      <i class="bi bi-plus-circle"></i> Agregar tarea
+    </a>
   </div>
 </div>
 
@@ -60,15 +63,10 @@ if (!isset($_SESSION['csrf_token'])) {
         <option value="Auditada">Auditada</option>
       </select>
     </div>
-    <div class="col-12 col-md-6 col-xl-4 ms-xl-auto">
-      <div class="d-flex gap-2">
-        <button type="submit" class="btn btn-primary flex-fill">
-          <i class="bi bi-funnel"></i> Aplicar filtros
-        </button>
-        <a class="btn btn-outline-primary flex-fill" href="?tab=tasks&new_task=1" aria-label="Agregar nueva tarea">
-          <i class="bi bi-plus-circle"></i> Agregar tarea
-        </a>
-      </div>
+    <div class="col-12 col-md-6 col-xl-2 ms-xl-auto d-grid">
+      <button type="submit" class="btn btn-primary">
+        <i class="bi bi-funnel"></i> Aplicar filtros
+      </button>
     </div>
   </form>
 </div>
