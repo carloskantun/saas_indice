@@ -21,6 +21,9 @@ if (!isset($_SESSION['csrf_token'])) {
     <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalColumns_ptAgendaTable" id="btnColumnsPT_ptAgendaTable">
       <i class="bi bi-columns-gap"></i> Columnas
     </button>
+    <a class="btn btn-primary" href="?tab=tasks&new_task=1" aria-label="Agregar nueva tarea">
+      <i class="bi bi-plus-circle"></i> Agregar tarea
+    </a>
   </div>
 </div>
 
@@ -295,10 +298,12 @@ if (!isset($_SESSION['csrf_token'])) {
       }
 
       tbody.innerHTML = tasks.map(task => {
+        const tipo = (task.tipo || '').trim() || 'Tarea';
+        const isTask = tipo === 'Tarea';
         return `
             <tr>
                 <td class="text-center"><input type="checkbox" class="pt-agenda-check" value="${escapeHtml(task.id)}" aria-label="Seleccionar"></td>
-                <td class="text-center">${getTypePill(task.tipo)}</td>
+                <td class="text-center">${getTypePill(tipo)}</td>
                 <td>${escapeHtml(task.folio || '-')}</td>
                 <td class="fw-semibold">${escapeHtml(task.titulo || '-')}</td>
                 <td class="text-center">${escapeHtml(task.unit_nombre || '-')}</td>
@@ -309,7 +314,17 @@ if (!isset($_SESSION['csrf_token'])) {
                 <td class="text-center">${escapeHtml(task.delegado_nombre || task.delegado_email || '-')}</td>
                 <td class="text-end">
                   <div class="ix-row-actions">
-                    <button type="button" class="btn btn-sm btn-icon ix-action-btn ix-action-btn--view" onclick="verDetalle(${task.id}, '${escapeHtml(task.tipo || 'Tarea')}')" title="Ver" aria-label="Ver"><i class="bi bi-eye"></i></button>
+                    ${isTask
+                      ? `
+                        <button type="button" class="btn btn-sm btn-icon ix-action-btn ix-action-btn--view" onclick="ptAgendaVerTarea('${escapeHtml(task.id)}')" title="Ver" aria-label="Ver"><i class="bi bi-eye"></i></button>
+                        <button type="button" class="btn btn-sm btn-icon ix-action-btn ix-action-btn--edit" onclick="ptAgendaEditarTarea('${escapeHtml(task.id)}')" title="Editar" aria-label="Editar"><i class="bi bi-pencil"></i></button>
+                        <button type="button" class="btn btn-sm btn-icon ix-action-btn ix-action-btn--dup" onclick="ptAgendaCompletarTarea('${escapeHtml(task.id)}')" title="Completar" aria-label="Completar"><i class="bi bi-check2"></i></button>
+                        <button type="button" class="btn btn-sm btn-icon ix-action-btn ix-action-btn--danger" onclick="ptAgendaEliminarTarea('${escapeHtml(task.id)}')" title="Eliminar" aria-label="Eliminar"><i class="bi bi-trash"></i></button>
+                      `
+                      : `
+                        <button type="button" class="btn btn-sm btn-icon ix-action-btn ix-action-btn--view" onclick="verDetalle(${escapeHtml(task.id)}, '${escapeHtml(tipo)}')" title="Ver" aria-label="Ver"><i class="bi bi-eye"></i></button>
+                      `
+                    }
                   </div>
                 </td>
             </tr>
@@ -332,6 +347,109 @@ if (!isset($_SESSION['csrf_token'])) {
 
     window.verDetalle = function(id, tipo) {
       alert('Ver detalle #' + id + ' (' + (tipo || 'Tarea') + ')\n\nFuncionalidad en desarrollo');
+    };
+
+    function getCsrfToken() {
+      return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    }
+
+    function toIntId(value) {
+      const n = parseInt(String(value || ''), 10);
+      return Number.isFinite(n) && n > 0 ? n : 0;
+    }
+
+    window.ptAgendaVerTarea = function(id) {
+      const taskId = toIntId(id);
+      if (!taskId) return;
+      window.location.href = `?tab=tasks&task_id=${encodeURIComponent(String(taskId))}&view_task=1`;
+    };
+
+    window.ptAgendaEditarTarea = function(id) {
+      const taskId = toIntId(id);
+      if (!taskId) return;
+      window.location.href = `?tab=tasks&task_id=${encodeURIComponent(String(taskId))}&edit_task=1`;
+    };
+
+    window.ptAgendaCompletarTarea = async function(id) {
+      const taskId = toIntId(id);
+      if (!taskId) return;
+      if (!confirm('¿Marcar esta tarea como terminada?')) return;
+
+      const csrf = getCsrfToken();
+      if (!csrf) {
+        alert('No se encontró token CSRF. Recarga la página e intenta de nuevo.');
+        return;
+      }
+
+      try {
+        const body = new URLSearchParams();
+        body.set('task_id', String(taskId));
+        body.set('field', 'status');
+        body.set('value', 'Terminada');
+
+        const res = await fetch('/modules/processes_tasks/api/update_field.php', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            'X-CSRF-Token': csrf,
+            'Accept': 'application/json'
+          },
+          body
+        });
+
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+          alert('No se pudo completar la tarea: ' + (data.error || ('HTTP ' + res.status)));
+          return;
+        }
+
+        currentAgendaFilters = readAgendaFiltersFromUI();
+        await cargarAgenda(currentAgendaFilters);
+      } catch (e) {
+        console.error('Error al completar tarea:', e);
+        alert('Error de conexión al completar la tarea');
+      }
+    };
+
+    window.ptAgendaEliminarTarea = async function(id) {
+      const taskId = toIntId(id);
+      if (!taskId) return;
+      if (!confirm('¿Eliminar esta tarea? Esta acción no se puede deshacer.')) return;
+
+      const csrf = getCsrfToken();
+      if (!csrf) {
+        alert('No se encontró token CSRF. Recarga la página e intenta de nuevo.');
+        return;
+      }
+
+      try {
+        const body = new URLSearchParams();
+        body.set('task_id', String(taskId));
+
+        const res = await fetch('/modules/processes_tasks/api/delete.php', {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            'X-CSRF-Token': csrf,
+            'Accept': 'application/json'
+          },
+          body
+        });
+
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+          alert('No se pudo eliminar la tarea: ' + (data.error || ('HTTP ' + res.status)));
+          return;
+        }
+
+        currentAgendaFilters = readAgendaFiltersFromUI();
+        await cargarAgenda(currentAgendaFilters);
+      } catch (e) {
+        console.error('Error al eliminar tarea:', e);
+        alert('Error de conexión al eliminar la tarea');
+      }
     };
 
     function initColumnsModal(tableId) {

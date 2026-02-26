@@ -1080,6 +1080,16 @@ if (!isset($_SESSION['csrf_token'])) {
     modal.show();
   };
 
+  // Si venimos desde Agenda con intención de crear tarea, abrir el modal
+  try {
+    const qs = new URLSearchParams(window.location.search);
+    if (qs.get('new_task') === '1') {
+      setTimeout(() => window.abrirModalCrearTarea && window.abrirModalCrearTarea(), 150);
+    }
+  } catch (e) {
+    // noop
+  }
+
   // Manejar envío del formulario de crear tarea
   document.getElementById('formCrearTarea').addEventListener('submit', async function(e) {
     e.preventDefault();
@@ -1277,6 +1287,21 @@ if (!isset($_SESSION['csrf_token'])) {
       editarTarea(currentEditingTaskId);
     }
   };
+
+  // Si venimos desde Agenda (u otra vista) para ver/editar una tarea específica
+  try {
+    const qs = new URLSearchParams(window.location.search);
+    const taskId = parseInt(qs.get('task_id') || '', 10);
+    if (Number.isFinite(taskId) && taskId > 0) {
+      if (qs.get('edit_task') === '1') {
+        setTimeout(() => window.editarTarea && window.editarTarea(taskId), 150);
+      } else if (qs.get('view_task') === '1') {
+        setTimeout(() => window.verTarea && window.verTarea(taskId), 150);
+      }
+    }
+  } catch (e) {
+    // noop
+  }
 
 })();
 </script>
