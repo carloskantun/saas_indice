@@ -53,7 +53,9 @@ if (!function_exists('isUsersIdInCompany')) {
         }
 
         $pdo = db();
-        $stmt = $pdo->prepare("SELECT 1 FROM user_companies WHERE user_id = ? AND company_id = ? AND status = 'active' LIMIT 1");
+
+        // Validar pertenencia por existencia de fila; evita depender de formatos de status.
+        $stmt = $pdo->prepare("SELECT 1 FROM user_companies WHERE user_id = ? AND company_id = ? LIMIT 1");
         $stmt->execute([$userId, $companyId]);
         $memo[$key] = (bool)$stmt->fetchColumn();
         return (bool)$memo[$key];

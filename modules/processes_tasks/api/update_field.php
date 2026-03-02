@@ -29,7 +29,7 @@ if (!$taskId || !$field) {
     exit; 
 }
 
-$allowed = ['status','priority','start','due','delegate','assignee','delegateId','assigneeId','auditScore','title','descripcion','titulo'];
+$allowed = ['status','priority','start','due','end','delegate','assignee','delegateId','assigneeId','auditScore','title','descripcion','titulo'];
 if (!in_array($field, $allowed)) { 
     echo json_encode(['ok'=>false,'error'=>'invalid_field']); 
     exit; 
