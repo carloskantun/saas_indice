@@ -1,0 +1,488 @@
+/* Índice ERP – Módulo de Procesos y Tareas
+   Diseño minimalista tipo Apple
+   Compatible con Bootstrap 5 */
+
+:root {
+    --primary: #1f4d9f;
+    --logo-yellow: #ffd650;
+    --logo-green: #2bb673;
+    --logo-red: #e74c3c;
+    --bg-surface: #f9fafb;
+    --bg-card: #ffffff;
+    --text: #0f172a;
+    --muted: #6b7280;
+    --radius: 16px;
+    --shadow: 0 2px 10px rgba(15, 23, 42, .06);
+}
+
+/* Tipografía base */
+body {
+    font-family: 'Inter', 'Arial', sans-serif;
+    background: var(--bg-surface);
+    color: var(--text);
+}
+
+/* Botones institucionales */
+.btn-brand {
+    background: var(--logo-yellow);
+    color: #111827;
+    border-radius: 12px;
+    font-weight: 700;
+    padding: .7rem 1.2rem;
+    border: none;
+    transition: all .2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.btn-brand:hover {
+    filter: brightness(.95);
+    transform: translateY(-1px);
+}
+
+.btn-ghost {
+    border: 1px solid rgba(15, 23, 42, .15);
+    background: transparent;
+    color: var(--text);
+    border-radius: 12px;
+    font-weight: 600;
+    padding: .6rem 1rem;
+    transition: all .2s ease;
+}
+
+.btn-ghost:hover {
+    background: rgba(15, 23, 42, .03);
+}
+
+/* Cards */
+.card {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    background: var(--bg-card);
+    border: none;
+}
+
+/* Animaciones reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all .4s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Encabezado del módulo */
+.module-header h2 {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin: 0;
+}
+
+/* Pestañas superiores */
+.nav-pills .nav-link {
+    color: var(--muted);
+    border-radius: 12px;
+    padding: .6rem 1.2rem;
+    font-weight: 600;
+    transition: all .2s ease;
+    border: 1px solid transparent;
+}
+
+.nav-pills .nav-link:hover {
+    background: rgba(15, 23, 42, .03);
+    color: var(--text);
+}
+
+.nav-pills .nav-link.active {
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: var(--shadow);
+}
+
+/* Tabla */
+.table {
+    border-spacing: 0 .5rem;
+    border-collapse: separate;
+}
+
+.table thead {
+    background-color: var(--bg-surface);
+    color: var(--primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+.table thead th {
+    padding: 1rem;
+    border: none;
+    white-space: nowrap;
+}
+
+.table tbody tr {
+    background: var(--bg-card);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, .04);
+    transition: all .2s ease;
+}
+
+.table tbody tr:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-1px);
+}
+
+.table tbody td {
+    padding: 1rem;
+    border: none;
+    vertical-align: middle;
+}
+
+/* Badges */
+.badge {
+    padding: .4rem .8rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.badge-success {
+    background: var(--logo-green);
+    color: #ffffff;
+}
+
+.badge-warning {
+    background: var(--logo-yellow);
+    color: #111827;
+}
+
+.badge-danger {
+    background: var(--logo-red);
+    color: #ffffff;
+}
+
+.badge-info {
+    background: var(--primary);
+    color: #ffffff;
+}
+
+/* Modal */
+.modal-content {
+    border-radius: var(--radius);
+    border: none;
+    box-shadow: 0 10px 40px rgba(15, 23, 42, .15);
+}
+
+/* Form inputs */
+.form-control,
+.form-select {
+    border: 1px solid rgba(15, 23, 42, .15);
+    border-radius: 10px;
+    padding: .7rem 1rem;
+    font-size: 14px;
+    transition: all .2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(31, 77, 159, .1);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: .5rem;
+    font-size: 14px;
+}
+
+.text-muted {
+    color: var(--muted) !important;
+}
+
+/* Botones de acción en tabla */
+.btn-action {
+    padding: .4rem .7rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all .2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .3rem;
+}
+
+.btn-action:hover {
+    transform: scale(1.05);
+}
+
+.btn-edit {
+    background: var(--logo-yellow);
+    color: #111827;
+}
+
+.btn-delete {
+    background: var(--logo-red);
+    color: #ffffff;
+}
+
+.btn-view {
+    background: var(--primary);
+    color: #ffffff;
+}
+
+/* Sección de título en cards */
+.card h5 {
+    font-weight: 600;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+/* Tabla editable inline */
+.table tbody td.editable {
+    cursor: pointer;
+    position: relative;
+}
+
+.table tbody td.editable:hover {
+    background: rgba(31, 77, 159, 0.03);
+}
+
+.table tbody td input.form-control-sm {
+    min-width: 100px;
+    border: 1px solid var(--primary);
+    box-shadow: 0 0 0 3px rgba(31, 77, 159, 0.1);
+}
+
+/* Select en tabla */
+.table .form-select-sm {
+    font-size: 13px;
+    padding: .35rem .6rem;
+    border-radius: 8px;
+    border: 1px solid rgba(15, 23, 42, .15);
+    transition: all .2s ease;
+    min-width: 120px;
+}
+
+.table .form-select-sm:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(31, 77, 159, 0.1);
+}
+
+/* Botones de acción en tabla */
+.btn-group .btn-sm {
+    padding: .35rem .5rem;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all .2s ease;
+    border: 1px solid transparent;
+}
+
+.btn-group .btn-ghost {
+    padding: .35rem .5rem;
+    border: 1px solid rgba(15, 23, 42, .08);
+}
+
+.btn-group .btn-ghost:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, .1);
+}
+
+.btn-group .btn-ghost.text-success:hover {
+    background: rgba(43, 182, 115, 0.1);
+    border-color: var(--logo-green);
+}
+
+.btn-group .btn-ghost.text-info:hover {
+    background: rgba(31, 77, 159, 0.1);
+    border-color: var(--primary);
+}
+
+.btn-group .btn-ghost.text-secondary:hover {
+    background: rgba(107, 114, 128, 0.1);
+    border-color: var(--muted);
+}
+
+.btn-group .btn-ghost.text-warning:hover {
+    background: rgba(255, 214, 80, 0.2);
+    border-color: var(--logo-yellow);
+}
+
+.btn-group .btn-ghost.text-danger:hover {
+    background: rgba(231, 76, 60, 0.1);
+    border-color: var(--logo-red);
+}
+
+/* Indicador de campo editable */
+.table tbody td.editable::after {
+    content: '✎';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    font-size: 12px;
+    color: var(--muted);
+    transition: opacity .2s ease;
+}
+
+.table tbody td.editable:hover::after {
+    opacity: 0.5;
+}
+
+/* Campos de solo lectura */
+.table tbody td.readonly {
+    background: rgba(249, 250, 251, 0.5);
+    color: var(--muted);
+}
+
+/* Animación de guardado */
+.table tbody td.saving {
+    background: rgba(43, 182, 115, 0.1);
+    animation: pulse 1s ease-in-out;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+/* Tooltip para ayuda de edición */
+.edit-hint {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .module-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .module-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .nav-pills {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-pills .nav-link {
+        width: 100%;
+    }
+}
+
+/* ===== Procesos view scoped styles (migrated from inline <style>) ===== */
+#module-processes-tasks .card-body {
+    overflow: visible !important;
+}
+
+#module-processes-tasks .card {
+    overflow: visible !important;
+    position: relative;
+    z-index: 1;
+}
+
+#module-processes-tasks .dropdown {
+    position: static !important;
+}
+
+#module-processes-tasks .dropdown-menu {
+    position: absolute !important;
+    z-index: 9999 !important;
+    will-change: transform;
+}
+
+#module-processes-tasks .dropdown.show .dropdown-menu {
+    display: block;
+    z-index: 9999 !important;
+}
+
+#module-processes-tasks .table-container {
+    position: relative;
+    z-index: 1;
+}
+
+#module-processes-tasks .card.border-0.shadow-sm:has(.table-container) {
+    z-index: 1;
+    overflow: visible !important;
+}
+
+#module-processes-tasks .row.g-3.align-items-end {
+    overflow: visible !important;
+}
+
+/* Barra de filtros sticky */
+#module-processes-tasks .filter-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1050;
+    background: #ffffff;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+}
+
+/* Estilos institucionales Índice */
+#module-processes-tasks .card {
+    border-radius: 16px !important;
+}
+
+/* Badges de estado institucionales */
+#module-processes-tasks .badge-estado-en-tiempo {
+    background: #10B981 !important;
+    color: #fff;
+}
+
+#module-processes-tasks .badge-estado-en-proceso {
+    background: #F59E0B !important;
+    color: #111827;
+}
+
+#module-processes-tasks .badge-estado-vencida {
+    background: #EF4444 !important;
+    color: #fff;
+}
+
+#module-processes-tasks .badge-estado-auditada {
+    background: #3B82F6 !important;
+    color: #fff;
+}
+
+#module-processes-tasks .badge-estado-completada {
+    background: #10B981 !important;
+    color: #fff;
+}
+
+/* Botones institucionales scoped */
+#module-processes-tasks .btn-ghost {
+    background: transparent;
+    border: 1px solid #E5E7EB;
+    color: #6B7280;
+}
+
+#module-processes-tasks .btn-ghost:hover {
+    background: #F9FAFB;
+    border-color: #D1D5DB;
+}

@@ -1,0 +1,235 @@
+/* ==========================================================================
+   Processes & Tasks — Skin tipo RH (Colaboradores) con tema amarillo
+   Objetivo: replicar 1:1 el patrón UI de RRHH (header + filtros + tabla + acciones)
+   Alcance: solo cuando el body tenga .pt-module.pt-cc-skin
+   ========================================================================== */
+
+body.pt-module.pt-cc-skin{
+  --primary:#ffd650; /* amarillo Índice */
+  --primary-rgb:255,214,80;
+  --success:#198754;
+  --muted:#667085;
+  --bg-surface:#f3f8fd;
+  --bg-card:#ffffff;
+  --radius:16px;
+  --shadow:0 1px 3px rgba(15,23,42,.08);
+  --border-light:rgba(15,23,42,.10);
+  --bs-primary: var(--primary);
+  --bs-link-color: #0f172a;
+  --bs-link-hover-color: #111827;
+  background:var(--bg-surface);
+  font-size:16px;
+}
+
+body.pt-module.pt-cc-skin .module-title{
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:-0.01em;
+}
+
+body.pt-module.pt-cc-skin .module-subtitle{
+  font-size:16px;
+  font-weight:400;
+}
+
+/* Botones primarios (amarillo) sin tocar otros módulos */
+body.pt-module.pt-cc-skin .btn-primary{
+  background:var(--primary);
+  border-color:var(--primary);
+  color:#111827;
+  font-weight:700;
+  border-radius:12px;
+}
+body.pt-module.pt-cc-skin .btn-primary:hover{
+  filter:brightness(.98);
+  color:#111827;
+}
+
+body.pt-module.pt-cc-skin .btn-outline-primary{
+  border-color: color-mix(in srgb, var(--primary) 55%, rgba(15,23,42,.25));
+  color:#111827;
+  border-radius:12px;
+  font-weight:700;
+}
+body.pt-module.pt-cc-skin .btn-outline-primary:hover{
+  background: color-mix(in srgb, var(--primary) 22%, transparent);
+  border-color: color-mix(in srgb, var(--primary) 70%, rgba(15,23,42,.25));
+  color:#111827;
+}
+
+/* Header de sección (idéntico a RH) */
+body.pt-module.pt-cc-skin .hr-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:1rem;
+  margin-bottom:14px;
+}
+
+body.pt-module.pt-cc-skin .hr-header h1{
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:-0.01em;
+  margin:0 0 .2rem;
+  color:#0f172a;
+}
+
+body.pt-module.pt-cc-skin .hr-header .subtitle{
+  margin:0;
+  font-size:16px;
+  color:var(--muted);
+  font-weight:400;
+}
+
+body.pt-module.pt-cc-skin .hr-header-right{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  flex-wrap:wrap;
+}
+
+body.pt-module.pt-cc-skin .hr-filter-card{
+  background:var(--bg-card);
+  border:1px solid rgba(15,23,42,.06);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:12px 12px 10px;
+  margin-bottom:12px;
+}
+
+body.pt-module.pt-cc-skin .hr-filter-card .form-label{
+  color:var(--muted);
+  font-weight:800;
+  font-size:.82rem;
+}
+
+body.pt-module.pt-cc-skin .hr-filter-card .form-control,
+body.pt-module.pt-cc-skin .hr-filter-card .form-select{
+  border-radius:12px;
+  border-color:rgba(15,23,42,.12);
+}
+
+body.pt-module.pt-cc-skin .hr-filter-card .btn{
+  height:36px;
+  border-radius:14px;
+  font-weight:700;
+}
+
+body.pt-module.pt-cc-skin .hr-table-wrapper{ margin-top:6px; }
+
+body.pt-module.pt-cc-skin .ix-table-card{
+  background:var(--bg-card);
+  border:1px solid rgba(15,23,42,.06);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+
+body.pt-module.pt-cc-skin .ix-pt-table{
+  margin:0;
+  border-collapse:separate;
+  border-spacing:0;
+}
+
+body.pt-module.pt-cc-skin .ix-pt-table thead th{
+  position:sticky;
+  top:0;
+  z-index:2;
+  background:linear-gradient(180deg, rgba(var(--primary-rgb),.10), rgba(var(--primary-rgb),.05));
+  color:var(--muted);
+  font-weight:800;
+  font-size:.72rem;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  border-bottom:1px solid rgba(15,23,42,.08);
+  padding:.72rem .8rem;
+  white-space:nowrap;
+}
+
+body.pt-module.pt-cc-skin .ix-pt-table tbody td{
+  padding:.65rem .8rem;
+  border-top:1px solid rgba(15,23,42,.06);
+  color:#0f172a;
+  vertical-align:middle;
+}
+
+body.pt-module.pt-cc-skin .ix-pt-table tbody tr:hover{ background:rgba(var(--primary-rgb),.06); }
+
+body.pt-module.pt-cc-skin .ix-pt-table input[type="checkbox"]{ accent-color:#b45309; }
+
+body.pt-module.pt-cc-skin .ix-row-actions{
+  display:inline-flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:8px;
+}
+
+body.pt-module.pt-cc-skin .ix-action-btn{
+  width:34px;
+  height:34px;
+  border-radius:12px;
+  border:1px solid rgba(15,23,42,.12);
+  background:#fff;
+  color:#0f172a;
+  box-shadow:0 1px 0 rgba(15,23,42,.06);
+  transition:transform .12s ease, background .12s ease, border-color .12s ease;
+}
+
+body.pt-module.pt-cc-skin .ix-action-btn:hover{
+  transform:translateY(-1px);
+  background:rgba(15,23,42,.02);
+  border-color:rgba(15,23,42,.18);
+}
+
+body.pt-module.pt-cc-skin .ix-action-btn:focus,
+body.pt-module.pt-cc-skin .ix-action-btn:active{
+  outline:none;
+  box-shadow:0 0 0 3px rgba(var(--primary-rgb),.25);
+}
+
+body.pt-module.pt-cc-skin .ix-action-btn--view{ background:rgba(14,165,233,.10); border-color:rgba(14,165,233,.20); color:#075985; }
+body.pt-module.pt-cc-skin .ix-action-btn--edit{ background:rgba(180,83,9,.10); border-color:rgba(180,83,9,.22); color:#92400e; }
+body.pt-module.pt-cc-skin .ix-action-btn--dup{ background:rgba(99,102,241,.10); border-color:rgba(99,102,241,.22); color:#3730a3; }
+body.pt-module.pt-cc-skin .ix-action-btn--danger{ background:rgba(239,68,68,.10); border-color:rgba(239,68,68,.22); color:#991b1b; }
+
+body.pt-module.pt-cc-skin .ix-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  padding:.2rem .6rem;
+  border-radius:999px;
+  font-weight:800;
+  font-size:.75rem;
+  border:1px solid rgba(15,23,42,.10);
+  background:#fff;
+  color:#0f172a;
+  white-space:nowrap;
+}
+
+body.pt-module.pt-cc-skin .ix-pill--ok{ background:rgba(34,197,94,.12); border-color:rgba(34,197,94,.22); color:#166534; }
+body.pt-module.pt-cc-skin .ix-pill--muted{ background:rgba(148,163,184,.18); border-color:rgba(148,163,184,.28); color:#334155; }
+body.pt-module.pt-cc-skin .ix-pill--warn{ background:rgba(245,158,11,.14); border-color:rgba(245,158,11,.24); color:#92400e; }
+body.pt-module.pt-cc-skin .ix-pill--info{ background:rgba(var(--primary-rgb),.14); border-color:rgba(var(--primary-rgb),.26); color:#78350f; }
+body.pt-module.pt-cc-skin .ix-pill--danger{ background:rgba(239,68,68,.10); border-color:rgba(239,68,68,.22); color:#991b1b; }
+
+/* Modal (igual patrón RH: limpio y redondeado) */
+body.pt-module.pt-cc-skin .modal-content.hr-modal{
+  border-radius:18px;
+  border:1px solid rgba(15,23,42,.10);
+  box-shadow:0 18px 55px rgba(15,23,42,.18);
+}
+body.pt-module.pt-cc-skin .modal-header.hr-modal,
+body.pt-module.pt-cc-skin .modal-footer.hr-modal{
+  border-color:rgba(15,23,42,.08);
+}
+body.pt-module.pt-cc-skin .modal-title.hr-modal{
+  font-weight:700;
+}
+
+/* Focus ring consistencia */
+body.pt-module.pt-cc-skin .form-control:focus,
+body.pt-module.pt-cc-skin .form-select:focus,
+body.pt-module.pt-cc-skin textarea.form-control:focus{
+  box-shadow:0 0 0 .2rem rgba(var(--primary-rgb),.18);
+  border-color: rgba(var(--primary-rgb), .65);
+}

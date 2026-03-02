@@ -1,0 +1,11 @@
+# Evitar commitear artefactos locales/ruido
+
+# Logs (mantener placeholder)
+logs/*
+!logs/.gitkeep
+
+# Error logs de PHP que se generan en runtime
+api/error_log
+
+# Artefactos archivados (documentos, demos, backups)
+_archived_files_*/
